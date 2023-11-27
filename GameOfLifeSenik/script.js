@@ -155,3 +155,5 @@ function draw() {
         virusArr[i].eat()
     }
 }
+
+console.log("hellow")
