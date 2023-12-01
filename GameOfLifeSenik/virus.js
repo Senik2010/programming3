@@ -45,8 +45,8 @@ class Virus {
             let newX = newCell[0];
             let newY = newCell[1];
 
-            matrix[newY][newX] = 6;
-
+            matrix[this.y][this.x] = 6
+           
         }
     }
 
@@ -60,9 +60,10 @@ class Virus {
             let newX = food[0]
             let newY = food[1]
 
-            matrix[this.y][this.x] = 0
+            matrix[this.y][this.x] = 6
 
-
+            let zomblo = new Zombie(newX,newY)
+            zombieArr.push(zomblo)
 
             for (let i in personArray) {
                 if (newX == personArray[i].x && newY == personArray[i].y) {
@@ -72,7 +73,7 @@ class Virus {
                 }
             }
 
-            if (this.energy >= 15) {
+            if (this.energy >= 65) {
                 this.mull()
             }
 
@@ -80,26 +81,5 @@ class Virus {
 
     }
 
-    // move() {
-    //     let emptyCells = this.chooseCell(0)
-    //     let newCell = random(emptyCells)
-
-    //     if (newCell) {
-    //         this.energy--
-    //             let newX = newCell[0]
-    //         let newY = newCell[1]
-
-    //         matrix[newY][newX] = 4
-    //         matrix[this.y][this.x] = 0
-
-
-    //         this.x = newX
-    //         this.y = newY
-
-    //         if (this.energy <= 0) {
-    //             this.die()
-    //         }
-    //     }
-
-    // }
+   
 }

@@ -2,7 +2,7 @@ class Predator {
     constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.energy = 10;
+        this.energy = 8;
         this.directions = [];
 
     }
@@ -60,7 +60,7 @@ class Predator {
         let food = random(foods)
 
         if (food) {
-            this.energy += 5
+            this.energy ++
             let newX = food[0]
             let newY = food[1]
 
@@ -85,7 +85,7 @@ class Predator {
 
             this.x = newX
             this.y = newY
-            if (this.energy >= 15) {
+            if (this.energy >= 25) {
                 this.mull()
             }
 

@@ -43,10 +43,11 @@ class Zombie {
 
 
     move() {
-        let emptyCells = this.chooseCell(0)
+        let emptyCells = this.chooseCell(0,1)
         let newCell = random(emptyCells)
-
+       
         if (newCell) {
+
             let newX = newCell[0]
             let newY = newCell[1]
 
@@ -61,6 +62,5 @@ class Zombie {
         }
 
     }
-
 
 }

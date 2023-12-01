@@ -60,7 +60,7 @@ class Person {
         let food = random(foods)
 
         if (food) {
-            this.energy += 5
+            this.energy += 2
             let newX = food[0]
             let newY = food[1]
 

@@ -8,10 +8,7 @@ function matrixGenerator(matrixSize, grassCount, grassEaterCount, predatorCount,
 
     }
 
-    // matrix[9][9] = 5
-    // matrix[10][9] = 5
-    // matrix[9][10] = 5
-    // matrix[10][10] = 5
+
 
     for (let j = 0; j < grassCount; j++) {
 
@@ -66,8 +63,8 @@ function matrixGenerator(matrixSize, grassCount, grassEaterCount, predatorCount,
     return matrix;
 }
 
-let matrix = matrixGenerator(20, 10, 4, 2, 8, 4);
-let side = 40;
+let matrix = matrixGenerator(40, 30, 12, 10, 10, 15);
+let side = 20;
 
 let grassArr = [];
 let grassEaterArr = [];
@@ -77,14 +74,14 @@ let virusArr = [];
 let zombieArr = [];
 
 function setup() {
-    frameRate(10);
+    frameRate(5);
     createCanvas(matrix[0].length * side, matrix.length * side);
     for (let y = 0; y < matrix.length; y++) {
         for (let x = 0; x < matrix[y].length; x++) {
             if (matrix[y][x] == 1) {
                 let gr = new Grass(x, y);
                 grassArr.push(gr);
-                console.log(grassArr);
+
 
             } else if (matrix[y][x] == 2) {
                 let grEat = new GrassEater(x, y);
@@ -112,23 +109,43 @@ function draw() {
         for (let x = 0; x < matrix[y].length; x++) {
             if (matrix[y][x] == 1) {
                 fill('green');
+                rect(x * side, y * side, side, side);
+                text("🍀", x * side, y * side, side, side)
+                textSize(side)
             } else if (matrix[y][x] == 2) {
                 fill('yellow');
+                rect(x * side, y * side, side, side);
+                text("🐮", x * side, y * side, side, side)
+                textSize(side)
+
+
             } else if (matrix[y][x] == 3) {
                 fill('red');
-            } else if (matrix[y][x] == 4) {
-                fill("#eab676");
                 rect(x * side, y * side, side, side);
-                text("🧔‍♂️", x * side, y * side, side, side)
+                text("🐆", x * side, y * side, side, side)
                 textSize(side)
+            } else if (matrix[y][x] == 4) {
+                fill('#eab676');
+                rect(x * side, y * side, side, side);
+                text("👶", x * side, y * side, side, side)
+                textSize(side)
+
             } else if (matrix[y][x] == 5) {
-                fill('white');
+                fill('magenta');
+                rect(x * side, y * side, side, side);
+                text("🦠", x * side, y * side, side, side)
+                textSize(side)
+
             } else if (matrix[y][x] == 6) {
                 fill('blue');
+                rect(x * side, y * side, side, side);
+                text("🧟‍♀️", x * side, y * side, side, side)
+                textSize(side)
             } else {
                 fill('gray')
+                rect(x * side, y * side, side, side);
+
             }
-            rect(x * side, y * side, side, side);
 
         }
 
@@ -154,6 +171,8 @@ function draw() {
     for (let i in virusArr) {
         virusArr[i].eat()
     }
-}
 
-console.log("hellow")
+    for (let i in zombieArr) {
+        zombieArr[i].move()
+    }
+}
