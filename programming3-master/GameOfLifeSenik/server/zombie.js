@@ -1,6 +1,6 @@
 let LivingCreature = require("./livingCreature")
 
-module.export = class Zombie extends LivingCreature {
+module.exports = class Zombie extends LivingCreature {
    
 
     constructor(x, y) {
@@ -31,7 +31,7 @@ module.export = class Zombie extends LivingCreature {
 
     move() {
         let emptyCells = this.chooseCell(0,1)
-        let newCell = random(emptyCells)
+        let newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
        
         if (newCell) {
 

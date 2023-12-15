@@ -1,6 +1,6 @@
 let LivingCreature = require("./livingCreature")
 
-module.export = class Virus extends LivingCreature{
+module.exports = class Virus extends LivingCreature{
     constructor(x, y) {
         super(x,y)
         this.energy = 10;
@@ -25,7 +25,7 @@ module.export = class Virus extends LivingCreature{
 
     mull() {
         let emptyCell = this.chooseCell(0);
-        let newCell = random(emptyCell);
+        let newCell = emptyCell[Math.floor(Math.random() * emptyCell.length)]
 
         if (newCell) {
             let newX = newCell[0];
@@ -39,7 +39,8 @@ module.export = class Virus extends LivingCreature{
 
     eat() {
         let foods = this.chooseCell(4)
-        let food = random(foods)
+        let food = foods[Math.floor(Math.random() * foods.length)]
+
 
         if (food) {
             this.energy += 5

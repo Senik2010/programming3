@@ -92,8 +92,8 @@ io.sockets.emit('send matrix', matrix)
 
 
 
-Grass = require("./Grass")
-GrassEater = require("./GrassEater")
+Grass = require("./grass")
+GrassEater = require("./grassEater")
 Person = require("./person")
 Predator = require("./predator")
 Virus = require("./virus")
@@ -105,26 +105,26 @@ function createObject(matrix) {
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
             if (matrix[y][x] == 1) {
-                let gr = new Grass(x, y, 1);
+                let gr = new Grass(x, y);
                 grassArr.push(gr)
             }
             else if (matrix[y][x] == 2) {
-                let grEater = new GrassEater(x, y, 2);
+                let grEater = new GrassEater(x, y, );
                 grassEaterArr.push(grEater)
             } else if (matrix[y][x] == 4) {
-                let pers = new Person(x, y, 3);
+                let pers = new Person(x, y, );
                 personArray.push(pers);
             } 
             else if (matrix[y][x] == 3) {
-                let pred = new Predator(x, y, 4);
+                let pred = new Predator(x, y, );
                 predatorArray.push(pred);
             }
              else if (matrix[y][x] == 5) {
-                let vir = new Virus(x, y, 5);
+                let vir = new Virus(x, y, );
                 virusArr.push(vir);
             }
              else if (matrix[y][x] == 6) {
-                let zombie = new Zombie(x, y, 6)
+                let zombie = new Zombie(x, y, )
                 zombieArr.push(zombie);
             }
             }
@@ -168,71 +168,5 @@ function createObject(matrix) {
         createObject(matrix)
     })
 
-// app.use(express.static("."));
 
-// app.get("/", function(req, res){
-// res.redirect("index.html");
-// });
-
-// app.listen(3000, function(){
-// console.log("Example is running on port 3000");
-// });
-
-// let Square = require("./square")
-
-// let obj = new Square(4)
-// console.log(obj.tviQarakusi());
-
-// let fs = require('fs');
-
-// function main(){
-// let file = "hello.txt";
-
-// fs.appendFileSync("hello.txt", "Hello world/n");
-// }
-// main();
-
-
-
-// var fs = require('fs');
-// function main(){
-// fs.writeFile("hello.txt", "Hello world\n", function(err){
-// console.log("fs.writeFile ended");
-// });
-// console.log("fs.writeFile");
-// }
-// main();
-
-
-
-// N1
-
-// var express = require("express");
-// var app = express();
-
-// app.use(express.static("your_project_folder_name"));
-
-// app.get("/", function(req, res) {
-//     res.redirect("http://google.com");
-// });
-
-// app.listen(3000, function() {
-//     console.log("Example is running on port 3000");
-// });
-
-
-// N2
-
-// var express = require("express");
-// var app = express();
-
-// app.use(express.static("your_project_folder_name"));
-
-// app.get("/", function(req, res, search) {
-//     search = "tumo"
-//     res.redirect("http://google.com/search?q=" + search);
-// });
-
-// app.listen(3000, function() {
-//     console.log("Example is running on port 3000");
-// });
+    
