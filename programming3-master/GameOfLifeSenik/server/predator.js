@@ -36,7 +36,7 @@ module.exports = class Predator extends LivingCreature{
             matrix[newY][newX] = 3;
 
             let pred = new Predator(newX, newY);
-            predatorArray.push(pred);
+            predatorArr.push(pred);
         }
     }
 
@@ -105,9 +105,9 @@ module.exports = class Predator extends LivingCreature{
     die() {
         matrix[this.y][this.x] = 0;
 
-        for (let i in predatorArray) {
-            if (this.x == predatorArray[i].x && this.y == predatorArray[i].y) {
-                predatorArray.splice(i, 1);
+        for (let i in predatorArr) {
+            if (this.x == predatorArr[i].x && this.y == predatorArr[i].y) {
+                predatorArr.splice(i, 1);
                 break;
             }
         }

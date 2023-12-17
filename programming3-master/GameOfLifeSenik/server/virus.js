@@ -52,9 +52,9 @@ module.exports = class Virus extends LivingCreature{
             let zomblo = new Zombie(newX,newY)
             zombieArr.push(zomblo)
 
-            for (let i in personArray) {
-                if (newX == personArray[i].x && newY == personArray[i].y) {
-                    personArray.splice(i, 1)
+            for (let i in personArr) {
+                if (newX == personArr[i].x && newY == personArr[i].y) {
+                    personArr.splice(i, 1)
 
                     break;
                 }

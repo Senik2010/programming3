@@ -81,8 +81,8 @@ function matrixGenerator(matrixSize, grassCount, grassEaterCount, predatorCount,
 matrix = matrixGenerator(40, 30, 12, 10, 10, 15);
 grassArr = [];
 grassEaterArr = [];
-predatorArray = [];
-personArray = [];
+predatorArr = [];
+personArr = [];
 virusArr = [];
 zombieArr = [];
 
@@ -113,11 +113,11 @@ function createObject(matrix) {
                 grassEaterArr.push(grEater)
             } else if (matrix[y][x] == 4) {
                 let pers = new Person(x, y, );
-                personArray.push(pers);
+                personArr.push(pers);
             } 
             else if (matrix[y][x] == 3) {
                 let pred = new Predator(x, y, );
-                predatorArray.push(pred);
+                predatorArr.push(pred);
             }
              else if (matrix[y][x] == 5) {
                 let vir = new Virus(x, y, );
@@ -143,12 +143,12 @@ function createObject(matrix) {
         for (var i in grassEaterArr) {
             grassEaterArr[i].eat();
         }
-        for (let i in predatorArray) {
-            predatorArray[i].eat()
+        for (let i in predatorArr) {
+            predatorArr[i].eat()
         }
     
-        for (let i in personArray) {
-            personArray[i].eat()
+        for (let i in personArr) {
+            personArr[i].eat()
         }
         for (let i in virusArr) {
             virusArr[i].eat()
@@ -169,4 +169,29 @@ function createObject(matrix) {
     })
 
 
+    let statistic = {
+        grass:0,
+        grassEater:0,
+        predator:0,
+        person:0,
+        virus:0,
+        zombie:0,
     
+    }
+    
+    setInterval(function(){
+        statistic.grass = grassArr.length;
+        statistic.grassEater = grassEaterArr.length;
+        statistic.person = personArr.length
+         statistic. predator = predatorArr.length
+        statistic.virus = virusArr.length
+        statistic.zombie = zombieArr.length
+        
+        fs.writeFile("statistics.json", JSON.stringify(statistic),()=>{
+            console.log("Writed statistic to file !!!");
+        })
+    
+    
+    }, 1000)
+   
+        
