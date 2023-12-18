@@ -24,6 +24,10 @@ module.exports = class Zombie extends LivingCreature {
     }
 
  
+    chooseCell(char1, char2) {
+        this.getNewCoordinates();
+        return super.chooseCell(char1, char2)
+    }
 
 
 

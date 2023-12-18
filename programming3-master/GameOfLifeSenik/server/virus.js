@@ -21,6 +21,12 @@ module.exports = class Virus extends LivingCreature{
         ];
     }
 
+    chooseCell(char1) {
+        this.getNewCoordinates();
+        return super.chooseCell(char1)
+    }
+
+
 
 
     mull() {

@@ -1,10 +1,10 @@
 let LivingCreature = require("./livingCreature")
 
-module.exports = class Person extends LivingCreature{
+module.exports = class Person extends LivingCreature {
     constructor(x, y) {
-        super(x,y)
+        super(x, y)
         this.energy = 10;
-       
+
 
     }
 
@@ -22,7 +22,10 @@ module.exports = class Person extends LivingCreature{
             [this.x + 1, this.y + 1]
         ];
     }
-
+    chooseCell(char1, char2) {
+        this.getNewCoordinates();
+        return super.chooseCell(char1, char2)
+    }
 
 
     mull() {
@@ -86,7 +89,7 @@ module.exports = class Person extends LivingCreature{
         let newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
         if (newCell) {
             this.energy--
-                let newX = newCell[0]
+            let newX = newCell[0]
             let newY = newCell[1]
 
             matrix[newY][newX] = 4

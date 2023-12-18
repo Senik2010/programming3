@@ -14,7 +14,7 @@ server.listen(3000, () => {
     console.log('connected');
 });
 
-function matrixGenerator(matrixSize, grassCount, grassEaterCount, predatorCount, personCount, virusCount) {
+function matrixGenerator(matrixSize, grassCount, grassEaterCount, predatorCount, personCount, virusCount, ) {
     let matrix = [];
     for (let i = 0; i < matrixSize; i++) {
         matrix.push([]);
@@ -76,9 +76,11 @@ function matrixGenerator(matrixSize, grassCount, grassEaterCount, predatorCount,
         }
     }
 
+
+
     return matrix;
 }
-matrix = matrixGenerator(40, 30, 12, 10, 10, 15);
+matrix = matrixGenerator(30, 30, 12, 10, 10, 15);
 grassArr = [];
 grassEaterArr = [];
 predatorArr = [];
@@ -127,12 +129,15 @@ function createObject(matrix) {
                 let zombie = new Zombie(x, y, )
                 zombieArr.push(zombie);
             }
+
             }
         
         }
+
+        io.sockets.emit('send matrix', matrix)
+
     }
     
-    io.sockets.emit('send matrix', matrix)
 
 
 
@@ -163,9 +168,29 @@ function createObject(matrix) {
 
     setInterval(game, 1000)
 
+    function bomb(){
+        console.log("function call ------");
+        for (var y = 0; y < matrix.length; y++) {
+            for (var x = 0; x < matrix[y].length; x++) {
+                    if(matrix[y][x] == 0 ){
+                        console.log("iffffffff------");
 
-    io.on('connection', function () {
-        createObject(matrix)
+                        matrix[y][x] = 7 
+                        io.sockets.emit("send matrix", matrix);
+                        return;
+                    }
+    
+                }
+            
+            }
+
+    }
+
+
+    io.on('connection', function (socket) {
+        createObject(matrix);
+        socket.on("bomb", bomb)
+
     })
 
 
@@ -183,7 +208,7 @@ function createObject(matrix) {
         statistic.grass = grassArr.length;
         statistic.grassEater = grassEaterArr.length;
         statistic.person = personArr.length
-         statistic. predator = predatorArr.length
+        statistic. predator = predatorArr.length
         statistic.virus = virusArr.length
         statistic.zombie = zombieArr.length
         
@@ -192,6 +217,8 @@ function createObject(matrix) {
         })
     
     
-    }, 1000)
+    }, 6000)
    
+
+ 
         
