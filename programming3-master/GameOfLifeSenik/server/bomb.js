@@ -2,10 +2,19 @@ let LivingCreature = require("./livingCreature")
 
 module.exports =  class Bomb extends LivingCreature{
     eat() {
-        let foods = this.chooseCell(1, 2, 3, 4, 5, 6)
-        if (foods) {     
-            let newX = food[0]
-            let newY = food[1]
+
+        let foods = this.chooseCell(1, 2, 3, 4, 5, 6);
+        console.log("======eat=======",foods);
+        let newX;
+        let newY;
+        if (foods.length > 0) {     
+            for (let i in foods) {
+                newX = foods[i][0];
+                newY = foods[i][1]
+     
+            }
+            // let newX = food[0]
+            // let newY = food[1]
     
             matrix[newY][newX] = 0
             matrix[this.y][this.x] = 0

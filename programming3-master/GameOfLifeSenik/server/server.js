@@ -14,7 +14,7 @@ server.listen(3000, () => {
     console.log('connected');
 });
 
-function matrixGenerator(matrixSize, grassCount, grassEaterCount, predatorCount, personCount, virusCount, ) {
+function matrixGenerator(matrixSize, grassCount, grassEaterCount, predatorCount, personCount, virusCount) {
     let matrix = [];
     for (let i = 0; i < matrixSize; i++) {
         matrix.push([]);
@@ -75,6 +75,7 @@ function matrixGenerator(matrixSize, grassCount, grassEaterCount, predatorCount,
             matrix[y][x] = 5
         }
     }
+  
 
 
 
@@ -87,6 +88,7 @@ predatorArr = [];
 personArr = [];
 virusArr = [];
 zombieArr = [];
+bombArr = [];
 
 
 
@@ -100,6 +102,7 @@ Person = require("./person")
 Predator = require("./predator")
 Virus = require("./virus")
 Zombie = require("./zombie")
+Bomb = require("./bomb")
 
 
 
@@ -111,114 +114,116 @@ function createObject(matrix) {
                 grassArr.push(gr)
             }
             else if (matrix[y][x] == 2) {
-                let grEater = new GrassEater(x, y, );
+                let grEater = new GrassEater(x, y);
                 grassEaterArr.push(grEater)
             } else if (matrix[y][x] == 4) {
-                let pers = new Person(x, y, );
+                let pers = new Person(x, y,);
                 personArr.push(pers);
-            } 
+            }
             else if (matrix[y][x] == 3) {
-                let pred = new Predator(x, y, );
+                let pred = new Predator(x, y);
                 predatorArr.push(pred);
             }
-             else if (matrix[y][x] == 5) {
-                let vir = new Virus(x, y, );
+            else if (matrix[y][x] == 5) {
+                let vir = new Virus(x, y);
                 virusArr.push(vir);
             }
-             else if (matrix[y][x] == 6) {
-                let zombie = new Zombie(x, y, )
+            else if (matrix[y][x] == 6) {
+                let zombie = new Zombie(x, y)
                 zombieArr.push(zombie);
+            }else if(matrix[y][x] == 7){
+                let bomb = new Bomb(x, y);
+                bombArr.push(bomb);
             }
 
-            }
-        
         }
-
-        io.sockets.emit('send matrix', matrix)
-
-    }
-    
-
-
-
-    function game() {
-        for (var i in grassArr) {
-            grassArr[i].mul()
-        }
-        for (var i in grassEaterArr) {
-            grassEaterArr[i].eat();
-        }
-        for (let i in predatorArr) {
-            predatorArr[i].eat()
-        }
-    
-        for (let i in personArr) {
-            personArr[i].eat()
-        }
-        for (let i in virusArr) {
-            virusArr[i].eat()
-        }
-    
-        for (let i in zombieArr) {
-            zombieArr[i].move()
-        }
-        io.sockets.emit("send matrix", matrix);
-    }
-
-
-    setInterval(game, 1000)
-
-    function bomb(){
-        console.log("function call ------");
-        for (var y = 0; y < matrix.length; y++) {
-            for (var x = 0; x < matrix[y].length; x++) {
-                    if(matrix[y][x] == 0 ){
-                        console.log("iffffffff------");
-
-                        matrix[y][x] = 7 
-                        io.sockets.emit("send matrix", matrix);
-                        return;
-                    }
-    
-                }
-            
-            }
 
     }
 
+    io.sockets.emit('send matrix', matrix)
 
-    io.on('connection', function (socket) {
-        createObject(matrix);
-        socket.on("bomb", bomb)
-
-    })
+}
 
 
-    let statistic = {
-        grass:0,
-        grassEater:0,
-        predator:0,
-        person:0,
-        virus:0,
-        zombie:0,
-    
+
+
+function game() {
+    console.log("bomb arrrray====>>>>",bombArr);
+    for (let i in grassArr) {
+        grassArr[i].mul()
     }
-    
-    setInterval(function(){
-        statistic.grass = grassArr.length;
-        statistic.grassEater = grassEaterArr.length;
-        statistic.person = personArr.length
-        statistic. predator = predatorArr.length
-        statistic.virus = virusArr.length
-        statistic.zombie = zombieArr.length
-        
-        fs.writeFile("statistics.json", JSON.stringify(statistic),()=>{
-            console.log("Writed statistic to file !!!");
-        })
-    
-    
-    }, 6000)
-   
+    for (let i in grassEaterArr) {
+        grassEaterArr[i].eat();
+    }
+    for (let i in predatorArr) {
+        predatorArr[i].eat()
+    }
 
- 
-        
+    for (let i in personArr) {
+        personArr[i].eat()
+    }
+    for (let i in virusArr) {
+        virusArr[i].eat()
+    }
+
+    for (let i in zombieArr) {
+        zombieArr[i].move()
+    }
+    for (let i in bombArr) {
+        bombArr[i].eat()
+    }
+    io.sockets.emit("send matrix", matrix);
+}
+
+
+setInterval(game, 1000)
+
+function bomb(bombCount) {
+    console.log("=====fffff======",bombCount);
+    for (let j = 0; j < bombCount; j++) {
+
+        let x = Math.floor(Math.random() * matrix.length)
+        let y = Math.floor(Math.random() * matrix.length)
+
+        if (matrix[y][x] == 0) {
+            matrix[y][x] = 7
+            io.sockets.emit("send matrix", matrix);
+        }
+    }
+}
+
+
+io.on('connection', function (socket) {
+    createObject(matrix);
+    socket.on("bomb", bomb)
+
+})
+
+
+let statistic = {
+    grass: 0,
+    grassEater: 0,
+    predator: 0,
+    person: 0,
+    virus: 0,
+    zombie: 0,
+
+}
+
+// setInterval(function () {
+//     statistic.grass = grassArr.length;
+//     statistic.grassEater = grassEaterArr.length;
+//     statistic.person = personArr.length
+//     statistic.predator = predatorArr.length
+//     statistic.virus = virusArr.length
+//     statistic.zombie = zombieArr.length
+
+//     fs.writeFile("statistics.json", JSON.stringify(statistic), () => {
+//         console.log("Writed statistic to file !!!");
+//     })
+
+
+// }, 6000)
+
+
+

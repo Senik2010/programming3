@@ -25,7 +25,8 @@ autumnButton.addEventListener("click", function () {
 })
 
 bombButton.addEventListener("click", function () {
-    socket.emit("bomb")
+   
+    socket.emit("bomb",1)
 })
 
 let side = 20;
@@ -67,7 +68,6 @@ function nkarel(matrix) {
                     text("☘️", x * side, y * side, side, side);
                     textSize(side)
                 }
-
 
             } else if (matrix[y][x] == 2) {
                 if (weather == "winter") {
