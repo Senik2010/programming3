@@ -26,13 +26,13 @@ autumnButton.addEventListener("click", function () {
 
 bombButton.addEventListener("click", function () {
    
-    socket.emit("bomb",1)
+    socket.emit("bomb",+prompt("nermuceq tiv"))
 })
 
 let side = 20;
 
 function setup() {
-    frameRate(5);
+   
     createCanvas(30 * side, 30 * side);
 }
 
@@ -164,11 +164,7 @@ function nkarel(matrix) {
 
 }
 
-setInterval(
-    function () {
         socket.on('send matrix', nkarel)
-    }, 1000
-)
 
 
 

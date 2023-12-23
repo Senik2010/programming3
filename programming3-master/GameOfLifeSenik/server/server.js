@@ -148,7 +148,6 @@ function createObject(matrix) {
 
 
 function game() {
-    console.log("bomb arrrray====>>>>",bombArr);
     for (let i in grassArr) {
         grassArr[i].mul()
     }
@@ -176,20 +175,23 @@ function game() {
 }
 
 
-setInterval(game, 1000)
+setInterval(game, 700)
 
 function bomb(bombCount) {
-    console.log("=====fffff======",bombCount);
     for (let j = 0; j < bombCount; j++) {
 
         let x = Math.floor(Math.random() * matrix.length)
         let y = Math.floor(Math.random() * matrix.length)
 
         if (matrix[y][x] == 0) {
+
             matrix[y][x] = 7
-            io.sockets.emit("send matrix", matrix);
+          
         }
     }
+
+    createObject(matrix)
+    io.sockets.emit("send matrix", matrix);
 }
 
 
@@ -210,20 +212,20 @@ let statistic = {
 
 }
 
-// setInterval(function () {
-//     statistic.grass = grassArr.length;
-//     statistic.grassEater = grassEaterArr.length;
-//     statistic.person = personArr.length
-//     statistic.predator = predatorArr.length
-//     statistic.virus = virusArr.length
-//     statistic.zombie = zombieArr.length
+setInterval(function () {
+    statistic.grass = grassArr.length;
+    statistic.grassEater = grassEaterArr.length;
+    statistic.person = personArr.length
+    statistic.predator = predatorArr.length
+    statistic.virus = virusArr.length
+    statistic.zombie = zombieArr.length
 
-//     fs.writeFile("statistics.json", JSON.stringify(statistic), () => {
-//         console.log("Writed statistic to file !!!");
-//     })
+    fs.writeFile("statistics.json", JSON.stringify(statistic), () => {
+        console.log("Writed statistic to file !!!");
+    })
 
 
-// }, 6000)
+}, 1000)
 
 
 
